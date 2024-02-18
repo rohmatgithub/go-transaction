@@ -1,0 +1,14 @@
+{
+  "E-1-TRS-SRV-001": "Unauthorized Client",
+  "E-1-TRS-SRV-002": "Expired Session",
+  "E-4-TRS-SRV-001": "Data with this {{.FieldName}} is already used by other, cant process this action",
+  "E-4-TRS-SRV-002": "Unknown data with this {{.FieldName}}",
+  "E-4-TRS-SRV-003": "{{.FieldName}} has updated by other. Data locked.",
+  "E-4-TRS-SRV-004": "You cannot access to select this {{.FieldName}}",
+  "E-4-TRS-SRV-005": "Data {{.FieldName}} can't be changed",
+  "E-4-TRS-SRV-006": "Data {{.FieldName}} can't be deleted",
+  "E-4-TRS-DTO-001": "Field {{.FieldName}} can't empty",
+  "E-4-TRS-DTO-002": "Format {{.FieldName}} invalid",
+  "E-5-TRS-DBS-001": "There is an error on the server, contact our Customer Service",
+  "E-5-TRS-SRV-001": "There is an error on the server, contact our Customer Service"
+}

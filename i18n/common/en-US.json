@@ -1,0 +1,11 @@
+{
+  "SUCCESS_LIST_MESSAGE": "Successfully get list data",
+  "SUCCESS_INITIATE_LIST_MESSAGE": "Successfully get initiate data",
+  "SUCCESS_PROCESS_MESSAGE": "Successfully do process",
+  "FAILED_PROCESS_MESSAGE": "Failed do process",
+  "SUCCESS_INSERT_MESSAGE": "Data successfully inserted",
+  "SUCCESS_UPDATE_MESSAGE": "Data successfully updated",
+  "SUCCESS_IMPORT_MESSAGE": "Successfully import file",
+  "SUCCESS_DELETE_MESSAGE": "Successfully deleting data",
+  "SUCCESS_COUNT_MESSAGE": "Successfully count data"
+}

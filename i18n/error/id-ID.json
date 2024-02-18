@@ -1,0 +1,14 @@
+{
+  "E-1-TRS-SRV-001": "Akses client tidak diijinkan",
+  "E-1-TRS-SRV-002": "Session Berakhir",
+  "E-4-TRS-SRV-001": "Data dengan {{.FieldName}} ini sudah digunakan, aksi tidak dapat dilakukan",
+  "E-4-TRS-SRV-002": "Unknown data with this {{.FieldName}}",
+  "E-4-TRS-SRV-003": "{{.FieldName}} has updated by other. Data locked.",
+  "E-4-TRS-SRV-004": "You cannot access to select this {{.FieldName}}",
+  "E-4-TRS-SRV-005": "Data {{.FieldName}} tidak dapat diubah",
+  "E-4-TRS-SRV-006": "Data {{.FieldName}} tidak dapat dihapus",
+  "E-4-TRS-DTO-001": "Field {{.FieldName}} tidak boleh kosong",
+  "E-4-TRS-DTO-002": "Format {{.FieldName}} tidak valid",
+  "E-5-TRS-DBS-001": "Terjadi kesalahan pada server, hubungi Customer Service kami",
+  "E-5-TRS-SRV-001": "Terjadi kesalahan pada server, hubungi Customer Service kami"
+}

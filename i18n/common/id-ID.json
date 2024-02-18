@@ -1,0 +1,11 @@
+{
+  "SUCCESS_LIST_MESSAGE": "Pengambilan daftar list data berhasil dilakukan",
+  "SUCCESS_INITIATE_LIST_MESSAGE": "Pengambilan data inisiasi data berhasil dilakukan",
+  "SUCCESS_PROCESS_MESSAGE": "Process berhasil dilakukan",
+  "FAILED_PROCESS_MESSAGE": "Process Gagal Dilakukan",
+  "SUCCESS_INSERT_MESSAGE": "Penambahan data berhasil dilakukan",
+  "SUCCESS_UPDATE_MESSAGE": "Pengubahan data berhasil dilakukan",
+  "SUCCESS_IMPORT_MESSAGE": "Import File Sukses",
+  "SUCCESS_DELETE_MESSAGE": "Data berhasil dihapus",
+  "SUCCESS_COUNT_MESSAGE": "Berhasil ambil count data"
+}

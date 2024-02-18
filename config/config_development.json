@@ -1,0 +1,59 @@
+{
+  "server": {
+    "protocol": "http",
+    "ethernet": "",
+    "auto_add_host": true,
+    "auto_add_client": true,
+    "host": "0.0.0.0",
+    "port": 9093,
+    "version": "1.0.0",
+    "resource_id": "trans",
+    "prefix_path": "trans",
+    "log_level": 0,
+    "is_development": true
+  },
+  "postgresql": {
+    "address": "user=postgres password=root dbname=microservice sslmode=disable host=localhost port=5432",
+    "default_schema": "transaction",
+    "max_open_connection": 500,
+    "max_idle_connection": 100
+  },
+  "postgresql_view": {
+    "address": "user=postgres password=root dbname=microservice sslmode=disable host=localhost port=5432",
+    "default_schema": "transaction",
+    "max_open_connection": 500,
+    "max_idle_connection": 100
+  },
+  "redis": {
+    "host": "localhost",
+    "port": 6379,
+    "db": 0,
+    "password": "",
+    "timeout": 10000,
+    "request_volume_threshold": 1000,
+    "sleep_window": 500,
+    "error_percent_threshold": 5,
+    "max_concurrent_requests": 10
+  },
+  "language_directory_path": "./i18n",
+  "sql_migrate_dir_path": "./sql_migrations",
+  "dir_file_resource": {
+    "path": "/file_nexchief2/file_resource"
+  },
+  "email": {
+    "address": "testemaildevnex@gmail.com",
+    "password": "xelxzhcbsuxkorpa",
+    "host": "smtp.gmail.com",
+    "port": 587
+  },
+  "discord": {
+    "token": "MTA4MzAzMzcwMjY4NDE4NDYwNg.G2wsTz.7xLyI4Q5CNObVvt2YEi9vIZpqO4TEz2veWzj8Q",
+    "channel_id": "1083057993739927632"
+  },
+  "jwt": {
+    "token_key": "ini juga gak di encrypt"
+  },
+  "uri_resource": {
+    "master_data": "http://localhost:9092"
+  }
+}
