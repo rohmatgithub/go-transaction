@@ -3,6 +3,7 @@ package dto
 import (
 	"go-transaction/common"
 	"go-transaction/model"
+	"time"
 )
 
 type SalesOrderRequest struct {
@@ -24,14 +25,29 @@ type SalesOrderItemRequest struct {
 }
 
 type ListSalesOrderResponse struct {
-	ID               int64   `json:"id"`
-	OrderNumber      string  `json:"order_number"`
-	OrderDate        string  `json:"order_date"`
-	TotalGrossAmount float64 `json:"total_gross_amount"`
-	TotalNetAmount   float64 `json:"total_net_amount"`
-	CustomerID       int64   `json:"customer_id"`
-	CustomerCode     string  `json:"customer_code"`
-	CustomerName     string  `json:"customer_name"`
+	ID               int64     `json:"id"`
+	UpdatedAt        time.Time `json:"updated_at"`
+	OrderNumber      string    `json:"order_number"`
+	OrderDate        string    `json:"order_date"`
+	TotalGrossAmount float64   `json:"total_gross_amount"`
+	TotalNetAmount   float64   `json:"total_net_amount"`
+	CustomerID       int64     `json:"customer_id"`
+	CustomerCode     string    `json:"customer_code"`
+	CustomerName     string    `json:"customer_name"`
+}
+
+type DetailSalesOrder struct {
+	ListSalesOrderResponse
+	ListItem []ListSalesOrderItemResponse `json:"list_items"`
+}
+type ListSalesOrderItemResponse struct {
+	ProductID       int64   `json:"product_id"`
+	ProductCode     string  `json:"product_code"`
+	ProductName     string  `json:"product_name"`
+	Qty             int64   `json:"qty"`
+	SellingPrice    float64 `json:"selling_price"`
+	LineGrossAmount float64 `json:"line_gross_amount"`
+	LineNetAmount   float64 `json:"line_net_amount"`
 }
 
 func (c *SalesOrderRequest) ValidateInsert(contextModel *common.ContextModel) map[string]string {

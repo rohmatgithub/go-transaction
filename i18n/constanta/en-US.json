@@ -2,5 +2,6 @@
   "UPDATED_AT": "updated date",
   "CODE": "Code",
   "PARENT_ID": "Parent ID",
-  "ORDER_NUMBER": "Order number"
+  "ORDER_NUMBER": "Order number",
+  "SALES_ORDER": "Sales Order"
 }

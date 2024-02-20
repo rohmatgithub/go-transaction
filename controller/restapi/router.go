@@ -35,6 +35,7 @@ func Router() error {
 
 	v1 := app.Group("/v1/trans")
 	RouteSalesOrder(v1)
+	RouteSalesInvoice(v1)
 
 	// exampleRepository := example_repository.NewExampleRepository(common.GormDB)
 	// exampleService := example_service.NewExampleService(exampleRepository)

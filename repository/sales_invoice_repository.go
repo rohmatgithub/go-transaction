@@ -11,8 +11,8 @@ import (
 	"gorm.io/gorm"
 )
 
-func InsertSalesOrderItem(tx *gorm.DB, data []map[string]model.UpsertModel) (errMdl model.ErrorModel) {
-	queryString, queryParam := getQueryUpsertMultiValues("sales_order_item", data)
+func CreateInvoiceItem(tx *gorm.DB, data []map[string]model.UpsertModel) (errMdl model.ErrorModel) {
+	queryString, queryParam := getQueryUpsertMultiValues("sales_invoice_item", data)
 
 	result := tx.Exec(queryString, queryParam...)
 	if result.Error != nil {
@@ -21,7 +21,7 @@ func InsertSalesOrderItem(tx *gorm.DB, data []map[string]model.UpsertModel) (err
 	return
 }
 
-func ListSalesOrder(db *gorm.DB, dtoList dto.GetListRequest, searchParam []dto.SearchByParam, ctxModel *common.ContextModel) (result []interface{}, errMdl model.ErrorModel) {
+func ListSalesInvoice(db *gorm.DB, dtoList dto.GetListRequest, searchParam []dto.SearchByParam, ctxModel *common.ContextModel) (result []interface{}, errMdl model.ErrorModel) {
 	// for i := 0; i < len(searchParam); i++ {
 	// 	switch searchParam[i].SearchKey {
 	// 	case "name":
@@ -29,25 +29,25 @@ func ListSalesOrder(db *gorm.DB, dtoList dto.GetListRequest, searchParam []dto.S
 	// 	}
 	// }
 	searchParam = append(searchParam, dto.SearchByParam{
-		SearchKey:      "so.company_id",
+		SearchKey:      "si.company_id",
 		SearchOperator: "eq",
 		SearchValue:    strconv.Itoa(int(ctxModel.AuthAccessTokenModel.CompanyID)),
 	})
-	dtoList.OrderBy = "so." + dtoList.OrderBy
-	query := "SELECT so.id, so.order_number, so.order_date, " +
-		"so.total_gross_amount, so.total_net_amount, so.customer_id " +
-		"FROM sales_order so "
+	dtoList.OrderBy = "si." + dtoList.OrderBy
+	query := "SELECT si.id, si.invoice_number, si.invoice_date, " +
+		"si.total_gross_amount, si.total_net_amount, si.customer_id " +
+		"FROM sales_invoice si "
 
 	return GetListDataDefault(db, query, nil, dtoList, searchParam,
 		func(rows *sql.Rows) (interface{}, error) {
-			var temp entity.SalesOrderEntity
-			err := rows.Scan(&temp.ID, &temp.OrderNumber, &temp.OrderDate,
+			var temp entity.SalesInvoiceEntity
+			err := rows.Scan(&temp.ID, &temp.InvoiceNumber, &temp.InvoiceDate,
 				&temp.TotalGrossAmount, &temp.TotalNetAmount, &temp.CustomerID)
 			return temp, err
 		})
 
 }
-func CountListSalesOrder(db *gorm.DB, searchParam []dto.SearchByParam, ctxModel *common.ContextModel) (result int64, errMdl model.ErrorModel) {
+func CountListSalesInvoice(db *gorm.DB, searchParam []dto.SearchByParam, ctxModel *common.ContextModel) (result int64, errMdl model.ErrorModel) {
 	searchParam = append(searchParam, dto.SearchByParam{
 		SearchKey:      "company_id",
 		SearchOperator: "eq",
@@ -59,13 +59,13 @@ func CountListSalesOrder(db *gorm.DB, searchParam []dto.SearchByParam, ctxModel 
 	// 	SearchValue:    strconv.Itoa(int(ctxModel.AuthAccessTokenModel.BranchID)),
 	// }
 	)
-	query := "SELECT COUNT(0) FROM sales_order "
+	query := "SELECT COUNT(0) FROM sales_invoice "
 
 	return GetCountDataDefault(db, query, nil, searchParam)
 
 }
 
-func FindSalesOrder(db *gorm.DB, entity *entity.SalesOrderEntity) (result *entity.SalesOrderEntity, errMdl model.ErrorModel) {
+func FindSalesInvoice(db *gorm.DB, entity *entity.SalesInvoiceEntity) (result *entity.SalesInvoiceEntity, errMdl model.ErrorModel) {
 	gormResult := db.Where(entity).Find(&result)
 	if gormResult.Error != nil {
 		errMdl = model.GenerateInternalDBServerError(gormResult.Error)
@@ -75,29 +75,19 @@ func FindSalesOrder(db *gorm.DB, entity *entity.SalesOrderEntity) (result *entit
 	return
 }
 
-func GetListSalesOrderItem(db *gorm.DB, e *entity.SalesOrderItemEntity) (result []interface{}, errMdl model.ErrorModel) {
-	query := "SELECT order_id, product_id, qty, " +
+func GetListSalesInvoiceItem(db *gorm.DB, e *entity.SalesInvoiceItemEntity) (result []interface{}, errMdl model.ErrorModel) {
+	query := "SELECT Invoice_id, product_id, qty, " +
 		"selling_price, line_gross_amount, line_net_amount " +
-		"FROM sales_order_item " +
-		"WHERE order_id = $1 "
+		"FROM sales_invoice_item " +
+		"WHERE invoice_id = $1 "
 
-	queryParam := []interface{}{e.OrderID.Int64}
+	queryParam := []interface{}{e.InvoiceID.Int64}
 	return ExecuteQuery(db, query, queryParam,
 		func(rows *sql.Rows) (interface{}, error) {
-			var temp entity.SalesOrderItemEntity
-			err := rows.Scan(&temp.OrderID, &temp.ProductID, &temp.Qty,
+			var temp entity.SalesInvoiceItemEntity
+			err := rows.Scan(&temp.InvoiceID, &temp.ProductID, &temp.Qty,
 				&temp.SellingPrice, &temp.LineGrossAmount, &temp.LineNetAmount)
 			return temp, err
 		})
 
-}
-
-func DeleteSalesOrderItemByOrderID(tx *gorm.DB, orderID int64) (errMdl model.ErrorModel) {
-	queryString := "DELETE FROM sales_order_item WHERE order_id = $1"
-
-	result := tx.Exec(queryString, orderID)
-	if result.Error != nil {
-		return model.GenerateInternalDBServerError(result.Error)
-	}
-	return
 }

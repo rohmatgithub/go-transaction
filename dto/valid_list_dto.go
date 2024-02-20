@@ -10,10 +10,11 @@ import (
 )
 
 var (
-	ValidOperatorProduct    map[string]DefaultOperator
-	ValidOperatorGeneral    map[string]DefaultOperator
-	ValidOperatorSalesOrder map[string]DefaultOperator
-	DefaultOrder            = []string{"id", "code", "name", "updated_at"}
+	ValidOperatorProduct      map[string]DefaultOperator
+	ValidOperatorGeneral      map[string]DefaultOperator
+	ValidOperatorSalesOrder   map[string]DefaultOperator
+	ValidOperatorSalesInvoice map[string]DefaultOperator
+	DefaultOrder              = []string{"id", "code", "name", "updated_at"}
 )
 
 func GenerateValidOperator() {
@@ -25,6 +26,10 @@ func GenerateValidOperator() {
 	ValidOperatorSalesOrder = map[string]DefaultOperator{
 		"order_number": {DataType: "char", Operator: []string{"eq", "like"}},
 		"name":         {DataType: "char", Operator: []string{"eq", "like"}},
+	}
+
+	ValidOperatorSalesInvoice = map[string]DefaultOperator{
+		"invoice_number": {DataType: "char", Operator: []string{"eq", "like"}},
 	}
 }
 

@@ -2,7 +2,7 @@ package entity
 
 import "database/sql"
 
-type SalesInvoice struct {
+type SalesInvoiceEntity struct {
 	AbstractEntity
 	CompanyID        sql.NullInt64
 	InvoiceNumber    sql.NullString
@@ -13,6 +13,6 @@ type SalesInvoice struct {
 	TotalNetAmount   sql.NullFloat64
 }
 
-func (SalesInvoice) TableName() string {
+func (SalesInvoiceEntity) TableName() string {
 	return "sales_invoice"
 }

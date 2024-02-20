@@ -10,6 +10,7 @@ type SalesOrderEntity struct {
 	CustomerID       sql.NullInt64
 	TotalGrossAmount sql.NullFloat64
 	TotalNetAmount   sql.NullFloat64
+	IsGenerated      sql.NullBool
 }
 
 func (SalesOrderEntity) TableName() string {

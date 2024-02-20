@@ -1,7 +1,9 @@
 package restapi
 
 import (
+	"fmt"
 	"go-transaction/common"
+	"go-transaction/constanta"
 	"go-transaction/controller/restapi/util_controller"
 	"go-transaction/dto"
 	"go-transaction/model"
@@ -15,11 +17,17 @@ func RouteSalesOrder(app fiber.Router) {
 	app.Post("/order", func(c *fiber.Ctx) error {
 		return ae.ServeJwtToken(c, "", CreateOrder)
 	})
+	app.Put("/order", func(c *fiber.Ctx) error {
+		return ae.ServeJwtToken(c, "", UpdateOrder)
+	})
 	app.Get("/order", func(c *fiber.Ctx) error {
 		return ae.ServeJwtToken(c, "", ListSalesOrder)
 	})
 	app.Get("/order/count", func(c *fiber.Ctx) error {
 		return ae.ServeJwtToken(c, "", CountListSalesOrder)
+	})
+	app.Get(fmt.Sprintf("/order/:%s", constanta.ParamID), func(c *fiber.Ctx) error {
+		return ae.ServeJwtToken(c, "", GetDetailSalesOrder)
 	})
 }
 func CreateOrder(c *fiber.Ctx, contextModel *common.ContextModel) (out dto.Payload, errMdl model.ErrorModel) {
@@ -30,6 +38,21 @@ func CreateOrder(c *fiber.Ctx, contextModel *common.ContextModel) (out dto.Paylo
 		return
 	}
 	out, errMdl = service.InsertSalesOrder(request, contextModel)
+	if errMdl.Error != nil {
+		return
+	}
+
+	return
+}
+
+func UpdateOrder(c *fiber.Ctx, contextModel *common.ContextModel) (out dto.Payload, errMdl model.ErrorModel) {
+	var request dto.SalesOrderRequest
+	err := c.BodyParser(&request)
+	if err != nil {
+		errMdl = model.GenerateInvalidRequestError(err)
+		return
+	}
+	out, errMdl = service.UpdateSalesOrder(request, contextModel)
 	if errMdl.Error != nil {
 		return
 	}
@@ -57,6 +80,19 @@ func CountListSalesOrder(c *fiber.Ctx, ctx *common.ContextModel) (out dto.Payloa
 		return
 	}
 	out, errMdl = service.CountListSalesOrder(listParam, ctx)
+	if errMdl.Error != nil {
+		return
+	}
+
+	return
+}
+
+func GetDetailSalesOrder(c *fiber.Ctx, ctx *common.ContextModel) (out dto.Payload, errMdl model.ErrorModel) {
+	id, errMdl := util_controller.GetParamID(c)
+	if errMdl.Error != nil {
+		return
+	}
+	out, errMdl = service.GetDetailSalesOrder(id, ctx)
 	if errMdl.Error != nil {
 		return
 	}

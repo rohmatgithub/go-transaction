@@ -46,3 +46,20 @@ type ListCustomerResponse struct {
 		Other interface{} `json:"other"`
 	} `json:"payload"`
 }
+
+type ListProductResponse struct {
+	Header  Header `json:"header"`
+	Payload struct {
+		Status Status `json:"status"`
+		Data   []struct {
+			ID           int64     `json:"id"`
+			Code         string    `json:"code"`
+			Name         string    `json:"name"`
+			SellingPrice float64   `json:"selling_price"`
+			CreatedAt    time.Time `json:"created_at"`
+			UpdatedAt    time.Time `json:"updated_at"`
+			// Category     dto.StructGeneral `json:"category"`
+		} `json:"data"`
+		Other interface{} `json:"other"`
+	} `json:"payload"`
+}

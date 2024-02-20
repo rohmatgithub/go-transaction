@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS sales_order (
     customer_id		INTEGER	DEFAULT 0,
     total_gross_amount		FLOAT	DEFAULT 0.0,
     total_net_amount		FLOAT	DEFAULT 0.0,
+	is_generated     BOOLEAN	DEFAULT FALSE,
 	created_by      INTEGER NULL DEFAULT 0,
 	created_at      timestamp NULL DEFAULT CURRENT_TIMESTAMP,
 	updated_by      INTEGER NULL DEFAULT 0,
