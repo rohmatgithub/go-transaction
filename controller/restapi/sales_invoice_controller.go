@@ -55,7 +55,7 @@ func ListSalesInvoice(c *fiber.Ctx, ctx *common.ContextModel) (out dto.Payload, 
 
 func CountListSalesInvoice(c *fiber.Ctx, ctx *common.ContextModel) (out dto.Payload, errMdl model.ErrorModel) {
 	// set to search param
-	listParam, errMdl := util_controller.ValidateCount(c, dto.ValidOperatorGeneral)
+	listParam, errMdl := util_controller.ValidateCount(c, dto.ValidOperatorSalesInvoice)
 	if errMdl.Error != nil {
 		return
 	}

@@ -75,7 +75,7 @@ func ListSalesOrder(c *fiber.Ctx, ctx *common.ContextModel) (out dto.Payload, er
 
 func CountListSalesOrder(c *fiber.Ctx, ctx *common.ContextModel) (out dto.Payload, errMdl model.ErrorModel) {
 	// set to search param
-	listParam, errMdl := util_controller.ValidateCount(c, dto.ValidOperatorGeneral)
+	listParam, errMdl := util_controller.ValidateCount(c, dto.ValidOperatorSalesOrder)
 	if errMdl.Error != nil {
 		return
 	}

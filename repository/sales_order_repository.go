@@ -35,14 +35,16 @@ func ListSalesOrder(db *gorm.DB, dtoList dto.GetListRequest, searchParam []dto.S
 	})
 	dtoList.OrderBy = "so." + dtoList.OrderBy
 	query := "SELECT so.id, so.order_number, so.order_date, " +
-		"so.total_gross_amount, so.total_net_amount, so.customer_id " +
+		"so.total_gross_amount, so.total_net_amount, so.customer_id, " +
+		"so.is_generated " +
 		"FROM sales_order so "
 
 	return GetListDataDefault(db, query, nil, dtoList, searchParam,
 		func(rows *sql.Rows) (interface{}, error) {
 			var temp entity.SalesOrderEntity
 			err := rows.Scan(&temp.ID, &temp.OrderNumber, &temp.OrderDate,
-				&temp.TotalGrossAmount, &temp.TotalNetAmount, &temp.CustomerID)
+				&temp.TotalGrossAmount, &temp.TotalNetAmount, &temp.CustomerID,
+				&temp.IsGenerated)
 			return temp, err
 		})
 

@@ -139,6 +139,7 @@ func ListSalesOrder(dtoList dto.GetListRequest, searchParam []dto.SearchByParam,
 			TotalGrossAmount: temp.TotalGrossAmount.Float64,
 			TotalNetAmount:   temp.TotalNetAmount.Float64,
 			CustomerID:       temp.CustomerID.Int64,
+			IsGenerated:      temp.IsGenerated.Bool,
 			// CustomerCode:     temp.CustomerCode.String,
 			// CustomerName:     temp.CustomerName.String,
 		})
@@ -273,6 +274,7 @@ func GetDetailSalesOrder(id int64, ctxModel *common.ContextModel) (out dto.Paylo
 			CustomerID:       resultDB.CustomerID.Int64,
 			CustomerCode:     customerCode,
 			CustomerName:     customerName,
+			IsGenerated:      resultDB.IsGenerated.Bool,
 		},
 		ListItem: listItemResponse,
 	}

@@ -34,6 +34,7 @@ type ListSalesOrderResponse struct {
 	CustomerID       int64     `json:"customer_id"`
 	CustomerCode     string    `json:"customer_code"`
 	CustomerName     string    `json:"customer_name"`
+	IsGenerated      bool      `json:"is_generated"`
 }
 
 type DetailSalesOrder struct {
