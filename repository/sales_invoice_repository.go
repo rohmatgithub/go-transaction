@@ -7,6 +7,7 @@ import (
 	"go-transaction/entity"
 	"go-transaction/model"
 	"strconv"
+	"time"
 
 	"gorm.io/gorm"
 )
@@ -90,4 +91,25 @@ func GetListSalesInvoiceItem(db *gorm.DB, e *entity.SalesInvoiceItemEntity) (res
 			return temp, err
 		})
 
+}
+
+func GetReportCustomerPurchase(db *gorm.DB, companyID, customerID int64, fromDate time.Time, thurDate time.Time) (result []interface{}, errMdl model.ErrorModel) {
+	query := " SELECT si.customer_id, sii.product_id, sum(sii.qty), sum(line_gross_amount), sum(line_net_amount) " +
+		"FROM sales_invoice_item sii " +
+		"LEFT JOIN sales_invoice si ON sii.invoice_id = si.id " +
+		"WHERE si.company_id = $1 AND si.invoice_date BETWEEN $2 AND $3 "
+	queryParam := []interface{}{companyID, fromDate, thurDate}
+	if customerID > 0 {
+		query += "AND si.customer_id = $4 "
+		queryParam = append(queryParam, customerID)
+	}
+
+	query += " GROUP BY si.customer_id, sii.product_id  ORDER BY si.customer_id "
+
+	return ExecuteQuery(db, query, queryParam,
+		func(rows *sql.Rows) (interface{}, error) {
+			var temp entity.ReportSalesInvoiceEntity
+			err := rows.Scan(&temp.CustomerID, &temp.ProductID, &temp.Qty, &temp.LineGrossAmount, &temp.LineNetAmount)
+			return temp, err
+		})
 }

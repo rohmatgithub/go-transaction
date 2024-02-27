@@ -16,3 +16,11 @@ type SalesInvoiceEntity struct {
 func (SalesInvoiceEntity) TableName() string {
 	return "sales_invoice"
 }
+
+type ReportSalesInvoiceEntity struct {
+	CustomerID      sql.NullInt64
+	ProductID       sql.NullInt64
+	Qty             sql.NullInt64
+	LineGrossAmount sql.NullFloat64
+	LineNetAmount   sql.NullFloat64
+}

@@ -14,14 +14,17 @@ import (
 
 func RouteSalesInvoice(app fiber.Router) {
 	var ae util_controller.AbstractController
-	app.Post(fmt.Sprintf("/invoice/:%s", constanta.ParamID), func(c *fiber.Ctx) error {
-		return ae.ServeJwtToken(c, "", CreateInvoice)
-	})
 	app.Get("/invoice", func(c *fiber.Ctx) error {
 		return ae.ServeJwtToken(c, "", ListSalesInvoice)
 	})
 	app.Get("/invoice/count", func(c *fiber.Ctx) error {
 		return ae.ServeJwtToken(c, "", CountListSalesInvoice)
+	})
+	app.Post("/invoice/reportcustomerpurchase", func(c *fiber.Ctx) error {
+		return ae.ServeJwtToken(c, "", ReportCustomerPurchase)
+	})
+	app.Post(fmt.Sprintf("/invoice/:%s", constanta.ParamID), func(c *fiber.Ctx) error {
+		return ae.ServeJwtToken(c, "", CreateInvoice)
 	})
 	app.Get(fmt.Sprintf("/invoice/:%s", constanta.ParamID), func(c *fiber.Ctx) error {
 		return ae.ServeJwtToken(c, "", GetDetailSalesInvoice)
@@ -73,6 +76,21 @@ func GetDetailSalesInvoice(c *fiber.Ctx, ctx *common.ContextModel) (out dto.Payl
 		return
 	}
 	out, errMdl = service.GetDetailSalesInvoice(id, ctx)
+	if errMdl.Error != nil {
+		return
+	}
+
+	return
+}
+
+func ReportCustomerPurchase(c *fiber.Ctx, contextModel *common.ContextModel) (out dto.Payload, errMdl model.ErrorModel) {
+	var request dto.CustomerPurchaseRequest
+	err := c.BodyParser(&request)
+	if err != nil {
+		errMdl = model.GenerateInvalidRequestError(err)
+		return
+	}
+	out, errMdl = service.ReportCustomerPurchase(request, contextModel)
 	if errMdl.Error != nil {
 		return
 	}
